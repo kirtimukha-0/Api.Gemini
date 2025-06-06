@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF QA with Gemini</title>
+</head>
+<body>
+  <h2>Upload PDF/Text & Ask Questions</h2>
+
+  <input type="file" id="fileInput" />
+  <button onclick="uploadFile()">Upload</button>
+
+  <br><br>
+  <textarea id="question" placeholder="Enter your question here..." rows="4" cols="60"></textarea><br>
+  <button onclick="askQuestion()">Get Answer</button>
+
+  <h3>Answer:</h3>
+  <div id="answer"></div>
+
+  <script>
+    function uploadFile() {
+      const fileInput = document.getElementById("fileInput");
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+
+      fetch("/upload", {
+        method: "POST",
+        body: formData,
+      })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+      .catch(err => alert("Upload error: " + err));
+    }
+
+    function askQuestion() {
+      const question = document.getElementById("question").value;
+
+      fetch("/ask", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("answer").innerText = data.answer || data.error;
+      })
+      .catch(err => {
+        document.getElementById("answer").innerText = "Error: " + err;
+      });
+    }
+  </script>
+</body>
+</html>
