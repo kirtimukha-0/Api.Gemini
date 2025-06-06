@@ -18,26 +18,26 @@
   <div id="answer"></div>
 
   <script>
-    const BACKEND_URL = "https://api-gemini-abb9.onrender.com";
+    const BASE_URL = "https://api-gemini-abb9.onrender.com";
 
     function uploadFile() {
       const fileInput = document.getElementById("fileInput");
       const formData = new FormData();
       formData.append("file", fileInput.files[0]);
 
-      fetch("/upload", {
+      fetch(`${BASE_URL}/upload`, {
         method: "POST",
         body: formData,
       })
       .then(res => res.json())
-      .then(data => alert(data.message))
+      .then(data => alert(data.message || data.error))
       .catch(err => alert("Upload error: " + err));
     }
 
     function askQuestion() {
       const question = document.getElementById("question").value;
 
-      fetch("/ask", {
+      fetch(`${BASE_URL}/ask`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ question }),
