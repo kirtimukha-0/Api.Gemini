@@ -3,6 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <title>PDF QA with Gemini</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+      color: #333;
+    }
+
+    h2 {
+      color: #2c3e50;
+    }
+
+    input[type="file"],
+    textarea {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      margin-right: 10px;
+    }
+
+    button:hover {
+      background-color: #1c5980;
+    }
+
+    #answer {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 15px;
+      white-space: pre-wrap;
+    }
+  </style>
 </head>
 <body>
   <h2>Upload PDF/Text & Ask Questions</h2>
@@ -11,11 +61,11 @@
   <button onclick="uploadFile()">Upload</button>
 
   <br><br>
-  <textarea id="question" placeholder="Enter your question here..." rows="4" cols="60"></textarea><br>
+  <textarea id="question" placeholder="Enter your question here..." rows="4"></textarea><br>
   <button onclick="askQuestion()">Get Answer</button>
 
   <h3>Answer:</h3>
-  <div id="answer"></div>
+  <div id="answer">Your answer will appear here.</div>
 
   <script>
     const BASE_URL = "https://api-gemini-abb9.onrender.com";
